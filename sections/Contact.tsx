@@ -22,7 +22,8 @@ export default function Contact() {
   const [status, setStatus] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault(); // ✅ IMPORTANT (prevents page reload)
+
     setLoading(true);
     setStatus("");
 
@@ -50,12 +51,12 @@ export default function Contact() {
   };
 
   return (
-<section
-  id="contact"
-  className="scroll-mt-12 min-h-screen flex flex-col justify-center px-6 
-  bg-white text-black 
-  dark:bg-black dark:text-white"
->
+    <section
+      id="contact"
+      className="scroll-mt-12 min-h-screen flex flex-col justify-center px-6 
+      bg-white text-black 
+      dark:bg-black dark:text-white"
+    >
       <div className="max-w-4xl mx-auto text-center w-full">
 
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -65,13 +66,16 @@ export default function Contact() {
         <p className="text-neutral-400 mb-10">
           Have a project, idea, or just want to connect? Let’s talk.
         </p>
+
+        {/* ✅ FIXED FORM */}
         <form
-  className="rounded-2xl p-6 
-  bg-white dark:bg-neutral-900/70 
-  backdrop-blur-xl 
-  border border-gray-300 dark:border-neutral-800 
-  shadow-xl space-y-5"
->
+          onSubmit={handleSubmit}
+          className="rounded-2xl p-6 
+          bg-white dark:bg-neutral-900/70 
+          backdrop-blur-xl 
+          border border-gray-300 dark:border-neutral-800 
+          shadow-xl space-y-5"
+        >
 
           <input
             type="text"
@@ -81,11 +85,12 @@ export default function Contact() {
             onChange={(e) =>
               setForm({ ...form, name: e.target.value })
             }
-          className="w-full p-3 rounded-lg 
-bg-white text-black 
-dark:bg-neutral-800 dark:text-white 
-border border-gray-300 dark:border-neutral-700 
-focus:ring-2 focus:ring-blue-500 outline-none"/>
+            className="w-full p-3 rounded-lg 
+            bg-white text-black 
+            dark:bg-neutral-800 dark:text-white 
+            border border-gray-300 dark:border-neutral-700 
+            focus:ring-2 focus:ring-blue-500 outline-none"
+          />
 
           <input
             type="email"
@@ -95,11 +100,12 @@ focus:ring-2 focus:ring-blue-500 outline-none"/>
             onChange={(e) =>
               setForm({ ...form, email: e.target.value })
             }
-           className="w-full p-3 rounded-lg 
-bg-white text-black 
-dark:bg-neutral-800 dark:text-white 
-border border-gray-300 dark:border-neutral-700 
-focus:ring-2 focus:ring-blue-500 outline-none"/>
+            className="w-full p-3 rounded-lg 
+            bg-white text-black 
+            dark:bg-neutral-800 dark:text-white 
+            border border-gray-300 dark:border-neutral-700 
+            focus:ring-2 focus:ring-blue-500 outline-none"
+          />
 
           <textarea
             placeholder="Your Message"
@@ -110,30 +116,38 @@ focus:ring-2 focus:ring-blue-500 outline-none"/>
               setForm({ ...form, message: e.target.value })
             }
             className="w-full p-3 rounded-lg 
-bg-white text-black 
-dark:bg-neutral-800 dark:text-white 
-border border-gray-300 dark:border-neutral-700 
-focus:ring-2 focus:ring-blue-500 outline-none"/>
+            bg-white text-black 
+            dark:bg-neutral-800 dark:text-white 
+            border border-gray-300 dark:border-neutral-700 
+            focus:ring-2 focus:ring-blue-500 outline-none"
+          />
 
-          <ShimmerButton type="submit" className="w-full">
+          {/* ✅ BUTTON FIX */}
+          <ShimmerButton
+            type="submit"
+            disabled={loading}
+            className="w-full"
+          >
             {loading ? "Sending..." : "Send Message 🚀"}
           </ShimmerButton>
 
+          {/* STATUS */}
           {status === "success" && (
-            <p className="text-green-400 text-sm">
+            <p className="text-green-500 text-sm">
               ✅ Message sent successfully!
             </p>
           )}
 
           {status === "error" && (
-            <p className="text-red-400 text-sm">
+            <p className="text-red-500 text-sm">
               ❌ Failed to send message. Try again.
             </p>
           )}
         </form>
 
+        {/* SOCIAL DOCK */}
         <div className="mt-12 flex justify-center">
-           <Dock className="bg-white dark:bg-neutral-900/70 backdrop-blur-xl border border-gray-300 dark:border-neutral-800 shadow-lg">
+          <Dock className="bg-white dark:bg-neutral-900/70 backdrop-blur-xl border border-gray-300 dark:border-neutral-800 shadow-lg">
 
             <DockIcon>
               <button
