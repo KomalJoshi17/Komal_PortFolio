@@ -102,10 +102,8 @@ export const CardBody = ({
 
 /* ================= ITEM ================= */
 
-export const CardItem = <
-  T extends React.ElementType = "div"
->({
-  as,
+export const CardItem = ({
+  as = "div",
   children,
   className,
   translateX = 0,
@@ -116,7 +114,7 @@ export const CardItem = <
   rotateZ = 0,
   ...rest
 }: {
-  as?: T;
+  as?: any;
   children?: React.ReactNode;
   className?: string;
   translateX?: number | string;
@@ -125,10 +123,10 @@ export const CardItem = <
   rotateX?: number | string;
   rotateY?: number | string;
   rotateZ?: number | string;
-} & React.ComponentPropsWithoutRef<T>) => {
-  const Tag = as || "div";
-
-  const ref = useRef<HTMLElement>(null);
+  [key: string]: any;
+}) => {
+  const Tag = as;
+  const ref = useRef<any>(null);
   const [isMouseEntered] = useMouseEnter();
 
   useEffect(() => {
@@ -157,7 +155,7 @@ export const CardItem = <
 
   return (
     <Tag
-      ref={ref as any}
+      ref={ref}
       className={cn("w-fit transition duration-200 ease-linear", className)}
       {...rest}
     >
