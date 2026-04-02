@@ -22,7 +22,7 @@ export default function Hero() {
             <div className="absolute inset-0 rounded-full border-4 border-black dark:border-white blur-sm"></div>
 
             <Image
-              src="/bitmoji.png"
+              src="/bitmoji1.jpeg"
               alt="Komal Joshi"
               width={320}
               height={320}
